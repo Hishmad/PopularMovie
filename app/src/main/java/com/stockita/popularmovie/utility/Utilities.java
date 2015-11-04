@@ -29,7 +29,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 /**
  * Created by hishmadabubakaralamudi on 10/6/15.
  */
@@ -39,7 +38,7 @@ public class Utilities {
     private static final String LOG_TAG = Utilities.class.getSimpleName();
     public static final String REQUEST_METHOD_GET = "GET";
     // Key to access themoviedb.org
-    public static final String KEYS = "your key here";
+    public static final String KEYS = "<Dont forget your key here>";
     // This is the URL sorted by rating
     public static final String URL_THE_MOVIE_DB_POPULAR_PageOne =
             "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=1&api_key=" + KEYS;
@@ -95,7 +94,6 @@ public class Utilities {
     /**
      * This will make a GET request to a RESTful web.
      *
-     * @param uri
      * @return String of JSON format
      */
     public static String getMovieData(String uri, Context context) {
@@ -162,7 +160,6 @@ public class Utilities {
      * This is the method that will do the parsing and bulk inserting to tables,
      * MovieEntry, GenreEntry.
      *
-     * @param context
      */
     public static void parseFeed(final Context context, String dataFetch, String key, String sortGroup) {
 
@@ -172,16 +169,6 @@ public class Utilities {
         // Timestamp.
         sCurrentTime = System.currentTimeMillis();
 
-        // Json String
-        final String lDataFetch = dataFetch;
-
-        // This is the key to use to store sCurrentTime in to SharedPreferences.
-        // Then use it to restore it, in order to delete the old rows.
-        final String lProcessKey = key;
-
-        // This is the grouping flag for each Popularity, Top Rating, Upcoming, and Search.
-        final String lSortGroup = sortGroup;
-
         // A container for MovieEntry for bulk insert
         ArrayList<ContentValues> lValuesMovieEntry = new ArrayList<>();
 
@@ -189,7 +176,7 @@ public class Utilities {
         try {
 
             // String to the root of JSONObject, the argument s is a String in JSON format.
-            JSONObject rootObject = new JSONObject(lDataFetch);
+            JSONObject rootObject = new JSONObject(dataFetch);
 
             // Call the rootObjet and get the key assign to String variable
             String rootObj = rootObject.get("results").toString();
@@ -222,7 +209,7 @@ public class Utilities {
                 contentMovieValues.put(ContractMovies.MovieEntry.COLUMN_AVERAGE_VOTE, obj.getDouble("vote_average"));
                 contentMovieValues.put(ContractMovies.MovieEntry.COLUMN_VOTE_COUNT, obj.getInt("vote_count"));
                 contentMovieValues.put(ContractMovies.MovieEntry.COLUMN_POSTING_TIME, sCurrentTime);
-                contentMovieValues.put(ContractMovies.MovieEntry.COLUMN_SORT_GROUP, lSortGroup);
+                contentMovieValues.put(ContractMovies.MovieEntry.COLUMN_SORT_GROUP, sortGroup);
 
                 // Pack the object contentMovieValues into ArrayList<ContentValues> lValuesMovieEntry
                 lValuesMovieEntry.add(contentMovieValues);
@@ -230,7 +217,7 @@ public class Utilities {
                 // Begin of GenreEntry insert.
                 // for extract sub array/field genre_ids
                 JSONArray genre = obj.getJSONArray("genre_ids");
-                parseGenre(context, movieIdHolder, genre, sCurrentTime, lSortGroup);
+                parseGenre(context, movieIdHolder, genre, sCurrentTime, sortGroup);
 
             } // end for loop
 
@@ -249,7 +236,7 @@ public class Utilities {
 
             // Store the current time millis in SharedPreference so we can use it
             // the next time.
-            setTimeStamp(context, lProcessKey, sCurrentTime);
+            setTimeStamp(context, key, sCurrentTime);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -260,9 +247,6 @@ public class Utilities {
      * Helper method to parse and then insert the GENRE within the MovieEntry,
      * after parse then insert into GenreEntry.
      *
-     * @param context
-     * @param id
-     * @param genre
      * @throws JSONException
      */
     private static void parseGenre(Context context, String id, JSONArray genre, long currentTime, String sortGroup)
@@ -294,9 +278,6 @@ public class Utilities {
 
     /**
      * Parse trailer link and insert them into TrailerEntry table.
-     *
-     * @param jsonData
-     * @return
      */
     public static void parseAndInsertTrailer(Context context, String jsonData, String movieId)
             throws JSONException {
@@ -340,8 +321,6 @@ public class Utilities {
     /**
      * Parse reviews link and insert them into ReviewEntry table.
      *
-     * @param jsonData
-     * @return
      */
     public static void parseAndInsertReview(Context context, String jsonData, String id) throws JSONException {
 
@@ -384,10 +363,7 @@ public class Utilities {
 
     /**
      * Parse and insert cast names and pictures into CreditEntry table
-     * @param context
-     * @param jsonData
-     * @param id
-     * @throws JSONException
+
      */
     public static void parseAndInsertCredits(Context context, String jsonData, String id) throws JSONException {
 
@@ -435,9 +411,6 @@ public class Utilities {
      *
      * Parse and insert PosterEntry
      *
-     * @param context
-     * @param jsonData
-     * @param id
      * @throws JSONException
      */
     public static void parseAndInsertPosters(Context context, String jsonData, String id) throws JSONException {
@@ -482,9 +455,6 @@ public class Utilities {
 
     /**
      * Genre's code
-     * @param genreCode
-     * @return
-     * @throws Exception
      */
     public static String genreList(int genreCode)  {
         HashMap<Integer, String> genreMovieList = new HashMap<>();
@@ -521,7 +491,6 @@ public class Utilities {
 
     /**
      * Download and Parse
-     * @param context
      */
     public static void downloadAllData(Context context) {
         // Download data and store the string in SharedPreferences
@@ -579,8 +548,6 @@ public class Utilities {
 
     /**
      * Same as above but this one must get user input to search for a movie.
-     * @param context
-     * @param searchForAMovie
      */
     public static void downloadSearchData(Context context, String searchForAMovie) {
 
@@ -612,9 +579,6 @@ public class Utilities {
     /**
      * This is special method to fetch data when user click on detail movie.
      * This will only fetch and parse then insert to database for Movie Trailer.
-     *
-     * @param context
-     * @param movieId
      */
     public static void getTrailerData(Context context, String movieId) {
         try {
@@ -634,9 +598,6 @@ public class Utilities {
     /**
      * This is special method to fetch data when user click on detail movie.
      * This will only fetch and parse then insert to database for Movie Review.
-     *
-     * @param context
-     * @param movieId
      */
     public static void getReviewsData(Context context, String movieId) {
         try {
@@ -656,9 +617,6 @@ public class Utilities {
     /**
      * This is special method to fetch data when user click on detail movie.
      * This will only fetch and parse then insert to database for Movie Credits.
-     *
-     * @param context
-     * @param movieId
      */
     public static void getCreditesData(Context context, String movieId) {
         try {
@@ -678,9 +636,6 @@ public class Utilities {
     /**
      * This is special method to fetch data when user click on detail movie.
      * This will only fetch and parse then insert to database for Movie Backdrops images.
-     *
-     * @param context
-     * @param movieId
      */
     public static void getPosterData(Context context, String movieId) {
         try {
@@ -699,9 +654,6 @@ public class Utilities {
 
     /**
      * Returns true if the network is available or about to become available.
-     *
-     * @param c Context used to get the ConnectivityManager
-     * @return true if the network is available
      */
     public static boolean isNetworkAvailable(Context c) {
         ConnectivityManager cm =
@@ -735,9 +687,6 @@ public class Utilities {
     /**
      * This method to store the current time in millis, this will be used to delete
      * old data after fetching new data.
-     * @param context
-     * @param key
-     * @param timeStamp
      */
     public static void setTimeStamp(Context context, String key, long timeStamp) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -747,9 +696,6 @@ public class Utilities {
     /**
      * This method to get the current time in millis that stored last time sync, so
      * we will delete all the rows that has this time stamp.
-     * @param context
-     * @param key
-     * @return
      */
     public static long getTimeStamp(Context context, String key) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -759,7 +705,6 @@ public class Utilities {
 
     /**
      * Hide the keyboard
-     * @param activity
      */
     public static void hideKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
@@ -771,9 +716,6 @@ public class Utilities {
 
     /**
      * We can use this method to store any String into SharedPreferences.
-     * @param context
-     * @param key
-     * @param value
      */
     public static void setMovieId(Context context, String key, String value) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -782,9 +724,7 @@ public class Utilities {
 
     /**
      * We can use this method to restore any String from SharedPReferences.
-     * @param context
-     * @param key
-     * @return
+
      */
     public static String getMovieId(Context context, String key) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
