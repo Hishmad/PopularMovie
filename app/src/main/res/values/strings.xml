@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Popular Movie</string>
+    <string name="content_authority">com.stockita.popularmovie.data.ContentProviderMovies</string>
+    <string name="syncAdapter_account_type">com.stockita.popularmovie</string>
+    <string name="activity_main_tab_one">Now Playing</string>
+    <string name="activity_main_tab_two">Upcoming</string>
+    <string name="activity_main_tab_three">Search</string>
+    <string name="activity_main_tab_four">Popular</string>
+    <string name="activity_main_tab_five">Rating</string>
+    <string name="menu_title_about">About</string>
+    <string name="activity_detail_tab_one">Details</string>
+    <string name="activity_detail_tab_two">Posters</string>
+    <string name="activity_detail_tab_three">Reviews</string>
+    <string name="release_date">"Released on: "</string>
+    <string name="popularities_grade">"Popularity: "</string>
+    <string name="genre_text">"Genre: "</string>
+    <string name="votes_text">"Votes: "</string>
+    <string name="content_description_recycler_view_movie_fragment">This is the data list</string>
+    <string name="content_desc_movie_poster">Movie poster</string>
+    <string name="content_desc_cast_image">Cast image</string>
+    <string name="menu_item_refresh">Refresh</string>
+    <string name="menu_item_about">About</string>
+    <string name="new_detail_view_cast">Cast:</string>
+    <string name="new_detail_view_trailer">Trailer:</string>
+    <string name="new_detail_view_synopsis">Synopsis:</string>
+</resources>

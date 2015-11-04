@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/placeCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_half"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
+
+    <RelativeLayout
+        android:id="@+id/mainHolder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_height">
+
+        <ImageView
+            android:id="@+id/moviePoster"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="@dimen/size_half"
+            android:layout_marginRight="@dimen/size_half"
+            android:layout_marginTop="@dimen/size_half"
+            android:layout_marginBottom="@dimen/size_half"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/content_desc_movie_poster"
+            android:layout_marginEnd="@dimen/size_half"
+            android:layout_marginStart="@dimen/size_half" />
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/moviePoster"
+            android:paddingLeft="@dimen/size_half"
+            android:paddingTop="@dimen/size_half"
+            android:paddingRight="@dimen/size_half"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:layout_toEndOf="@id/moviePoster"
+            android:paddingEnd="@dimen/size_half"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+
+        <TextView
+            android:id="@+id/releaseDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/movieTitle"
+            android:layout_alignStart="@+id/movieTitle"
+            android:layout_below="@+id/movieTitle"
+            android:paddingLeft="@dimen/size_half"
+            android:paddingRight="@dimen/size_half"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:paddingEnd="@dimen/size_half"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+        <TextView
+            android:id="@+id/grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/releaseDate"
+            android:layout_toEndOf="@+id/moviePoster"
+            android:layout_toRightOf="@+id/moviePoster"
+            android:paddingLeft="@dimen/size_half"
+            android:paddingRight="@dimen/size_half"
+            android:textColor="@color/colorAccent"
+            android:paddingEnd="@dimen/size_half"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+        <TextView
+            android:id="@+id/movieGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/moviePoster"
+            android:layout_toRightOf="@+id/moviePoster"
+            android:gravity="bottom"
+            android:paddingLeft="@dimen/size_half"
+            android:paddingRight="@dimen/size_half"
+            android:layout_marginBottom="@dimen/size_half"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="10sp"
+            android:paddingStart="@dimen/size_half"
+            android:paddingEnd="@dimen/size_half"
+            tools:targetApi="m" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

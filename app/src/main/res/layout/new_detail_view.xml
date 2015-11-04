@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_placeCardDetail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_half"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
+
+    <RelativeLayout
+        android:id="@+id/new_mainHolderDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/size_half">
+
+        <ImageView
+            android:id="@+id/new_moviePosterDetail"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/content_desc_movie_poster"/>
+
+
+        <TextView
+            android:id="@+id/new_movieTitleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/new_moviePosterDetail"
+            android:layout_toRightOf="@+id/new_moviePosterDetail"
+            android:paddingLeft="@dimen/size_half"
+            android:paddingTop="@dimen/size_half"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:paddingStart="@dimen/size_half"
+            android:layout_alignParentStart="false"
+            tools:targetApi="m" />
+
+        <TextView
+            android:id="@+id/new_releaseDateDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_movieTitleDetail"
+            android:layout_toEndOf="@+id/new_moviePosterDetail"
+            android:layout_toRightOf="@+id/new_moviePosterDetail"
+            android:paddingLeft="@dimen/size_half"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+        <TextView
+            android:id="@+id/new_gradeDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_releaseDateDetail"
+            android:layout_toEndOf="@+id/new_moviePosterDetail"
+            android:layout_toRightOf="@+id/new_moviePosterDetail"
+            android:paddingLeft="@dimen/size_half"
+            android:textColor="@color/colorAccent"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+        <TextView
+            android:id="@+id/new_movieGenreDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/new_moviePosterDetail"
+            android:layout_toEndOf="@+id/new_moviePosterDetail"
+            android:layout_toRightOf="@+id/new_moviePosterDetail"
+            android:gravity="bottom"
+            android:paddingLeft="@dimen/size_half"
+            android:paddingRight="@dimen/size_half"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="10sp"
+            android:paddingEnd="@dimen/size_half"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/new_moviePosterDetail"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:text="@string/new_detail_view_synopsis"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/new_overviewDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+        <!-- Cast container -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_overviewDetail"
+            android:paddingLeft="@dimen/size_half"
+            android:text="@string/new_detail_view_cast"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/new_recyclerViewCastCardDetail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/double_card_height"
+            android:layout_below="@+id/textView2" />
+
+        <!-- Trailer container -->
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_recyclerViewCastCardDetail"
+            android:paddingLeft="@dimen/size_half"
+            android:text="@string/new_detail_view_trailer"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingStart="@dimen/size_half"
+            tools:targetApi="m" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/new_recyclerViewTrailerCardDetail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_below="@+id/textView3"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
