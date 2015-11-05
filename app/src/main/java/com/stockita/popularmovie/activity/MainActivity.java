@@ -1,10 +1,8 @@
 package com.stockita.popularmovie.activity;
 
-import android.app.LoaderManager;
+
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +19,7 @@ import com.stockita.popularmovie.slidingtabs.SlidingTabLayout;
 import com.stockita.popularmovie.slidingtabs.ViewPagerAdapter;
 import com.stockita.popularmovie.sync.SyncUtility;
 import com.stockita.popularmovie.utility.FetchAndParse;
-import com.stockita.popularmovie.utility.Utilities;
+
 
 public class MainActivity extends AppCompatActivity implements CallThis {
 
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CallThis {
         int numberOfTabs = NUMBER_OF_TAB;
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager(), tabTitles, numberOfTabs);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager(), tabTitles, numberOfTabs, this);
 
         // Assigning ViewPager View and setting the adapter
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -112,29 +110,15 @@ public class MainActivity extends AppCompatActivity implements CallThis {
 
     /**
      * Callback method to pass data from RecyclerViewFragment.. into NewDetailFragment.
-     *
-     * @param movieId
-     * @param movieTitle
-     * @param releaseDate
-     * @param posterPath
-     * @param grade
      */
     @Override
-    public void onItemSelectedMovieId(String movieId, String movieTitle, String releaseDate, String posterPath,
-                                      String grade, String genre, String backDrop, String overview, String sortGroup) {
+    public void onItemSelectedMovieId(String movieId, String sortGroup) {
 
         // Go to detail activity
         Intent intent = new Intent(this, NewDetailActivity.class);
 
         // Pass these data to detail activity
         intent.putExtra(ContractMovies.MovieEntry.COLUMN_MOVIE_ID, movieId);
-        intent.putExtra(ContractMovies.MovieEntry.COLUMN_MOVIE_TITLE, movieTitle);
-        intent.putExtra(ContractMovies.MovieEntry.COLUMN_RELEASE_DATE, releaseDate);
-        intent.putExtra(ContractMovies.MovieEntry.COLUMN_POSTER_PATH, posterPath);
-        intent.putExtra(ContractMovies.MovieEntry.COLUMN_POPULARITY, grade);
-        intent.putExtra(ContractMovies.GenreEntry.COLUMN_GENRE, genre);
-        intent.putExtra(ContractMovies.MovieEntry.COLUMN_BACKDROP_PATH, backDrop);
-        intent.putExtra(ContractMovies.MovieEntry.COLUMN_OVERVIEW, overview);
         intent.putExtra(ContractMovies.MovieEntry.COLUMN_SORT_GROUP, sortGroup);
 
         startActivity(intent);

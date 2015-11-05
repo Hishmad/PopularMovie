@@ -1,13 +1,10 @@
 package com.stockita.popularmovie.fragment;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +12,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.adapters.RatingRecyclerViewAdapter;
@@ -38,8 +33,6 @@ public class RecyclerViewFragmentMovieRating extends Fragment implements LoaderM
 
     // Member variable.
     private RatingRecyclerViewAdapter mRatingAdapter;
-    private CallThis mActivityRating;
-
 
     // Empty constructor
     public RecyclerViewFragmentMovieRating() {
@@ -52,14 +45,6 @@ public class RecyclerViewFragmentMovieRating extends Fragment implements LoaderM
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.mActivityRating = (CallThis) context;
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +53,7 @@ public class RecyclerViewFragmentMovieRating extends Fragment implements LoaderM
         View rootView = inflater.inflate(R.layout.recycler_view_movie_fragment, container, false);
 
         // Initialize the Adapter
-        mRatingAdapter = new RatingRecyclerViewAdapter(getContext());
+        mRatingAdapter = new RatingRecyclerViewAdapter(getActivity());
 
         // Initialize the Recycler view
         RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.list);
@@ -97,29 +82,15 @@ public class RecyclerViewFragmentMovieRating extends Fragment implements LoaderM
     public RatingRecyclerViewAdapter.OnItemClickListenerRating onItemClickListener =
             new RatingRecyclerViewAdapter.OnItemClickListenerRating() {
                 @Override
-                public void onItemClick(View view,
-                                        int position,
-                                        String movieId,
-                                        String movieTitle,
-                                        String releaseDate,
-                                        String posterPath,
-                                        String grade,
-                                        String genre,
-                                        String backDrop,
-                                        String overview,
-                                        String sortGroup) {
-
+                public void onItemClick(View view, int position, String movieId, String sortGroup) {
                     // Pass the data to NewDetailFragment via MainActivity Callback interface (CallThis)
-                    mActivityRating.onItemSelectedMovieId(movieId, movieTitle, releaseDate, posterPath, grade, genre, backDrop, overview, sortGroup);
+                    ((CallThis) getActivity()).onItemSelectedMovieId(movieId, sortGroup);
                 }
             };
 
 
     /**
      * Instantiate CursorLoader
-     * @param id
-     * @param args
-     * @return
      */
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -144,8 +115,6 @@ public class RecyclerViewFragmentMovieRating extends Fragment implements LoaderM
     /**
      * This is where the loader finished loading the data into the memory,
      * now send the data to the adapter, by invoking swapCursor() method.
-     * @param loader
-     * @param data
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -189,7 +158,6 @@ public class RecyclerViewFragmentMovieRating extends Fragment implements LoaderM
 
     /**
      * Make sure it is null, for now.
-     * @param loader
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {

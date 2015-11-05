@@ -1,28 +1,25 @@
 package com.stockita.popularmovie.fragment;
 
-import android.annotation.TargetApi;
+
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.adapters.UpcomingRecyclerViewAdapter;
 import com.stockita.popularmovie.data.ContractMovies;
 import com.stockita.popularmovie.data.ModelMovie;
 import com.stockita.popularmovie.interfaces.CallThis;
+
 
 import java.util.ArrayList;
 
@@ -43,16 +40,12 @@ public class RecyclerViewFragmentMovieUpcoming extends Fragment implements Loade
     // The Adapter object.
     private UpcomingRecyclerViewAdapter mUpcomingAdapter;
 
-    // The CallBack interface object, to pass data from this fragment to the MainActivity.java
-    private CallThis mActivity;
-
     // Empty constructor.
     public RecyclerViewFragmentMovieUpcoming() {
     }
 
     /**
      * Here we fire the loaders.
-     * @param savedInstanceState
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,17 +54,6 @@ public class RecyclerViewFragmentMovieUpcoming extends Fragment implements Loade
         super.onActivityCreated(savedInstanceState);
     }
 
-    /**
-     * We attach the CallBack interface instance to pass data to the MainActivity.
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.mActivity = (CallThis) context;
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +65,7 @@ public class RecyclerViewFragmentMovieUpcoming extends Fragment implements Loade
         ViewHolder holder = new ViewHolder(rootView);
 
         // Initialize the Adapter
-        mUpcomingAdapter = new UpcomingRecyclerViewAdapter(getContext());
+        mUpcomingAdapter = new UpcomingRecyclerViewAdapter(getActivity());
 
         // Initialize the LayoutManager
         StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1,
@@ -112,26 +94,15 @@ public class RecyclerViewFragmentMovieUpcoming extends Fragment implements Loade
                 public void onItemClick(View view,
                                         int position,
                                         String movieId,
-                                        String movieTitle,
-                                        String releaseDate,
-                                        String posterPath,
-                                        String grade,
-                                        String genre,
-                                        String backDrop,
-                                        String overview,
                                         String sortGroup) {
 
                     // Pass the data to NewDetailFragment via MainActivity Callback interface (CallThis)
-                    mActivity.onItemSelectedMovieId(movieId, movieTitle, releaseDate, posterPath, grade, genre, backDrop, overview, sortGroup);
-
+                    ((CallThis) getActivity()).onItemSelectedMovieId(movieId, sortGroup);
                 }
             };
 
     /**
      * Instantiate CursorLoader
-     * @param id
-     * @param args
-     * @return
      */
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -155,8 +126,6 @@ public class RecyclerViewFragmentMovieUpcoming extends Fragment implements Loade
     /**
      * This is where the loader finished loading the data into the memory,
      * now send the data to the adapter, by invoking swapCursor() method.
-     * @param loader
-     * @param data
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -200,7 +169,6 @@ public class RecyclerViewFragmentMovieUpcoming extends Fragment implements Loade
 
     /**
      * Make sure it is null, for now.
-     * @param loader
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {

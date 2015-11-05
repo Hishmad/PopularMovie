@@ -12,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
@@ -47,7 +45,6 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
 
     /**
      * Get the data from the Fragment
-     * @param data
      */
     public void swapCursor(ArrayList<ModelMovie> data) {
         mListModelMovie = data;
@@ -57,8 +54,6 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
 
     /**
      * Mapping the position with table's row _id
-     * @param position
-     * @return
      */
     @Override
     public long getItemId(int position) {
@@ -67,8 +62,6 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
 
     /**
      * Return the count other wise if cursor null return 0;
-     *
-     * @return
      */
     @Override
     public int getItemCount() {
@@ -77,9 +70,6 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
 
     /**
      * Get the layout
-     *
-     * @param position
-     * @return
      */
     @Override
     public int getItemViewType(int position) {
@@ -96,10 +86,7 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
     }
 
     /**
-     * Here we go.
-     *
-     * @param holder
-     * @param position
+     * Here we go.*
      */
     @Override
     public void onBindViewHolder(final ViewHolderRating holder, final int position) {
@@ -129,13 +116,6 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
             // Passing data around
             lMovieId = mListModelMovie.get(position).getMovieId();
             holder.hMovieID = lMovieId;
-            holder.hMovieTitle = movieTitle;
-            holder.hReleaseDate = releaseDate;
-            holder.hPosterPath = moviePoster;
-            holder.hGrade = String.valueOf(grade);
-
-            holder.hBackdrop = mListModelMovie.get(position).getBackdropPath();
-            holder.hOverview = mListModelMovie.get(position).getOverview();
             holder.hSortGroup = mListModelMovie.get(position).getSortGroup();
 
         }
@@ -183,8 +163,6 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
 
     /**
      * Set up the click
-     *
-     * @param itemClickListener
      */
     public void setOnItemClickListenerRating(final OnItemClickListenerRating itemClickListener) {
         mItemClickListener = itemClickListener;
@@ -194,9 +172,7 @@ public class RatingRecyclerViewAdapter extends RecyclerView.Adapter<RatingRecycl
  * Click interface that will be used by the Fragment, and implemented by the ViewHolder.
  */
 public interface OnItemClickListenerRating {
-    void onItemClick(View view, int position, String movieId, String movieTitle,
-                     String releaseDate, String posterPath, String grade, String genre,
-                     String backdrop, String overview, String sortGroup);
+    void onItemClick(View view, int position, String movieId, String sortGroup);
 }
 
 /**
@@ -246,8 +222,7 @@ public class ViewHolderRating extends RecyclerView.ViewHolder implements View.On
     public void onClick(View v) {
         if (mItemClickListener != null) {
             mItemClickListener.onItemClick(itemView, getLayoutPosition(),
-                    hMovieID, hMovieTitle, hReleaseDate, hPosterPath,
-                    hGrade, hGenre, hBackdrop, hOverview, hSortGroup);
+                    hMovieID, hSortGroup);
         }
     }
 

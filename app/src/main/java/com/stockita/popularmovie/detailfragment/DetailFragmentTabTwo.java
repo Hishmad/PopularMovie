@@ -1,6 +1,6 @@
 package com.stockita.popularmovie.detailfragment;
 
-import android.annotation.TargetApi;
+
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -57,15 +57,13 @@ public class DetailFragmentTabTwo extends Fragment implements LoaderManager.Load
 
     /**
      * on Create
-     * @param savedInstanceState
      */
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize context;
-        mContext = getContext();
+        mContext = getActivity();
 
         // savedInstanceState restored
         if (savedInstanceState != null) {
@@ -129,7 +127,7 @@ public class DetailFragmentTabTwo extends Fragment implements LoaderManager.Load
 
     /**
      * Reload the cursors
-     * @param savedInstanceState
+
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -138,7 +136,6 @@ public class DetailFragmentTabTwo extends Fragment implements LoaderManager.Load
         super.onActivityCreated(savedInstanceState);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Return new cursor with the following query parameters.

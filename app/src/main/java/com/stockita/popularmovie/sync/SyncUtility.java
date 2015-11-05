@@ -6,7 +6,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
 
 /**
@@ -34,7 +33,6 @@ public class SyncUtility {
 
     /**
      * execute the sync in interval mode
-     * @param context
      */
     public static void execSyncInterval(Context context) {
 
@@ -62,9 +60,7 @@ public class SyncUtility {
     }
 
     /**
-     *
-     * @param context
-     * @return
+     * Create the sync account
      */
     private static Account createSyncAccount(Context context) {
 

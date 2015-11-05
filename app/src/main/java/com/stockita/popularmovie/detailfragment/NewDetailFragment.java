@@ -1,6 +1,5 @@
 package com.stockita.popularmovie.detailfragment;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -54,7 +53,6 @@ public class NewDetailFragment extends Fragment implements LoaderManager.LoaderC
     /**
      * To survive screen/configuration changes
      *
-     * @param outState
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -65,16 +63,13 @@ public class NewDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     /**
      * onCreate
-     *
-     * @param savedInstanceState
      */
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize context;
-        mContext = getContext();
+        mContext = getActivity();
 
         // savedInstanceState restored
         if (savedInstanceState != null) {
@@ -83,6 +78,7 @@ public class NewDetailFragment extends Fragment implements LoaderManager.LoaderC
         }
     }
 
+    @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Get the data that passed by the Recycler View Fragment.
@@ -177,7 +173,6 @@ public class NewDetailFragment extends Fragment implements LoaderManager.LoaderC
         super.onActivityCreated(savedInstanceState);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Return new cursor with the following query parameters.

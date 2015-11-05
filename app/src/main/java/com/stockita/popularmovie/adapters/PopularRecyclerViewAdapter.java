@@ -12,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
@@ -136,13 +134,6 @@ public class PopularRecyclerViewAdapter extends RecyclerView.Adapter<PopularRecy
             // Passing data around
             lMovieId = mListModelMovie.get(position).getMovieId();
             holder.hMovieID = lMovieId;
-            holder.hMovieTitle = movieTitle;
-            holder.hReleaseDate = releaseDate;
-            holder.hPosterPath = moviePoster;
-            holder.hGrade = String.valueOf(popularitiesAfterFormat);
-
-            holder.hBackdrop = mListModelMovie.get(position).getBackdropPath();
-            holder.hOverview = mListModelMovie.get(position).getOverview();
             holder.hSortGroup = mListModelMovie.get(position).getSortGroup();
 
         }
@@ -201,8 +192,7 @@ public class PopularRecyclerViewAdapter extends RecyclerView.Adapter<PopularRecy
      */
     public interface OnItemClickListenerPopular {
         void onItemClick(View view, int position,
-                         String movieId, String movieTitle, String releaseDate, String posterPath,
-                         String grade, String genre, String backdrop, String overview, String sortGroup);
+                         String movieId, String sortGroup);
     }
 
     /**
@@ -250,8 +240,7 @@ public class PopularRecyclerViewAdapter extends RecyclerView.Adapter<PopularRecy
         public void onClick(View v) {
             if (mItemClickListener != null) {
                 mItemClickListener.onItemClick(itemView, getLayoutPosition(),
-                        hMovieID, hMovieTitle, hReleaseDate, hPosterPath, hGrade,
-                        hGenre, hBackdrop, hOverview, hSortGroup);
+                        hMovieID, hSortGroup);
             }
         }
 

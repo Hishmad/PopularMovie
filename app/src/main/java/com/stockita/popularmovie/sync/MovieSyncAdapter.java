@@ -5,13 +5,10 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.stockita.popularmovie.data.ContractMovies;
 import com.stockita.popularmovie.utility.Utilities;
 
 import org.json.JSONException;
@@ -29,9 +26,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
     /**
      * Constructor
-     *
-     * @param context
-     * @param autoInitialize
      */
     public MovieSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -40,10 +34,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
     /**
      * Constructor
-     *
-     * @param context
-     * @param autoInitialize
-     * @param allowParallelSyncs
      */
     public MovieSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);

@@ -2,8 +2,9 @@ package com.stockita.popularmovie.utility;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 import android.util.Log;
+
+import com.stockita.popularmovie.R;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class FetchAndParse extends IntentService {
 
         // Check for network before fetching data
         if (!Utilities.isNetworkAvailable(getBaseContext())) {
-            Log.v(LOG_TAG, "No network");
+            Log.v(LOG_TAG, getBaseContext().getString(R.string.info_user_check_connection));
             return;
         } else {
 

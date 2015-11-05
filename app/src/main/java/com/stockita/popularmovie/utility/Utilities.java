@@ -11,8 +11,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
-
 
 import com.stockita.popularmovie.data.ContractMovies;
 
@@ -38,7 +36,7 @@ public class Utilities {
     private static final String LOG_TAG = Utilities.class.getSimpleName();
     public static final String REQUEST_METHOD_GET = "GET";
     // Key to access themoviedb.org
-    public static final String KEYS = "<Dont forget your key here>";
+    public static final String KEYS = "6aa40ab662c684e4ac61551e93f15d08";
     // This is the URL sorted by rating
     public static final String URL_THE_MOVIE_DB_POPULAR_PageOne =
             "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=1&api_key=" + KEYS;

@@ -1,9 +1,7 @@
 package com.stockita.popularmovie.fragment;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -18,7 +16,6 @@ import android.view.ViewGroup;
 
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.adapters.NowPlayingRecyclerViewAdapter;
-import com.stockita.popularmovie.adapters.UpcomingRecyclerViewAdapter;
 import com.stockita.popularmovie.data.ContractMovies;
 import com.stockita.popularmovie.data.ModelMovie;
 import com.stockita.popularmovie.interfaces.CallThis;
@@ -42,16 +39,12 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
     // The Adapter object.
     private NowPlayingRecyclerViewAdapter mNowPlayingAdapter;
 
-    // The CallBack interface object, to pass data from this fragment to the MainActivity.java
-    private CallThis mActivity;
-
     // Empty constructor
     public RecyclerViewFragmentMovieNowPlaying() {
     }
 
     /**
      * Here we fire the loaders.
-     * @param savedInstanceState
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -60,18 +53,6 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
         super.onActivityCreated(savedInstanceState);
     }
 
-
-    /**
-     * We attach the CallBack interface instance to pass data to the MainActivity.
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.mActivity = (CallThis) context;
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +61,7 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
         View rootView = inflater.inflate(R.layout.recycler_view_movie_fragment, container, false);
 
         // Initialize the Adapter.
-        mNowPlayingAdapter = new NowPlayingRecyclerViewAdapter(getContext());
+        mNowPlayingAdapter = new NowPlayingRecyclerViewAdapter(getActivity());
 
         // Initialize the ViewHolder.
         ViewHolder holder = new ViewHolder(rootView);
@@ -112,28 +93,16 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
                 public void onItemClick(View view,
                                         int position,
                                         String movieId,
-                                        String movieTitle,
-                                        String releaseDate,
-                                        String posterPath,
-                                        String grade,
-                                        String genre,
-                                        String backDrop,
-                                        String overview,
                                         String sortGroup) {
 
                     // Pass the data to NewDetailFragment via MainActivity Callback interface (CallThis)
-                    mActivity.onItemSelectedMovieId(movieId, movieTitle, releaseDate, posterPath, grade, genre, backDrop, overview, sortGroup);
-
+                    ((CallThis) getActivity()).onItemSelectedMovieId(movieId, sortGroup);
                 }
             };
 
     /**
      * Instantiate CursorLoader
-     * @param id
-     * @param args
-     * @return
      */
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Return new cursor with the following query parameters.
@@ -142,7 +111,7 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
 
         switch (id) {
             case LOADER_IDE_ONE:
-                loader = new CursorLoader(getContext(),
+                loader = new CursorLoader(getActivity(),
                         ContractMovies.MovieEntry.CONTENT_URI,
                         null,
                         ContractMovies.MovieEntry.COLUMN_SORT_GROUP + "=?",
@@ -157,8 +126,6 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
     /**
      * This is where the loader finished loading the data into the memory,
      * now send the data to the adapter, by invoking swapCursor() method.
-     * @param loader
-     * @param data
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -202,7 +169,6 @@ public class RecyclerViewFragmentMovieNowPlaying extends Fragment implements Loa
 
     /**
      * Make sure it is null, for now.
-     * @param loader
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {

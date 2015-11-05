@@ -1,7 +1,5 @@
 package com.stockita.popularmovie.activity;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.content.ContextCompat;
@@ -11,9 +9,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
-import com.stockita.popularmovie.detailfragment.DetailFragmentTabThree;
-import com.stockita.popularmovie.detailfragment.DetailFragmentTabTwo;
-import com.stockita.popularmovie.detailfragment.NewDetailFragment;
 import com.stockita.popularmovie.slidingtabs.SlidingTabLayout;
 import com.stockita.popularmovie.slidingtabs.ViewPagerAdapterDetail;
 import com.stockita.popularmovie.utility.Utilities;
@@ -41,7 +36,6 @@ public class NewDetailActivity extends AppCompatActivity {
     // Member variable
     private String mMovieId, mSortGroup;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

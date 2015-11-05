@@ -1,6 +1,5 @@
 package com.stockita.popularmovie.detailadapter;
 
-import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
@@ -55,8 +52,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter<NewDetailAdapter.View
 
     /**
      * Get the data from the data set Loader
-     * @param data
-     * @param selection
      */
     public void swapData(ArrayList data, int selection) {
 
@@ -78,9 +73,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter<NewDetailAdapter.View
 
     /**
      * Mapping the position with table's row _id
-     *
-     * @param position
-     * @return
      */
     @Override
     public long getItemId(int position) {
@@ -89,8 +81,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter<NewDetailAdapter.View
 
     /**
      * Return the count other wise if null return 0;
-     *
-     * @return
      */
     @Override
     public int getItemCount() {
@@ -101,9 +91,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter<NewDetailAdapter.View
      * This method will get the position and returns a resource layout id (R.layout....)
      * So we can manipulate, such as different layout for each position, instead of a static layout
      * for all.
-     *
-     * @param position
-     * @return
      */
     @Override
     public int getItemViewType(int position) {
@@ -233,7 +220,6 @@ public class NewDetailAdapter extends RecyclerView.Adapter<NewDetailAdapter.View
      */
     public TrailerDetailViewAdapter.OnItemClickListenerTrailer onItemClickListenerTrailer =
             new TrailerDetailViewAdapter.OnItemClickListenerTrailer() {
-                @TargetApi(Build.VERSION_CODES.M)
                 @Override
                 public void onItemClick(View view, int position, String trailerLink) {
                     // Goto youtube.

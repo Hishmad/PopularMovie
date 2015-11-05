@@ -15,6 +15,7 @@ import com.stockita.popularmovie.fragment.RecyclerViewFragmentMoviePopular;
 import com.stockita.popularmovie.fragment.RecyclerViewFragmentMovieSearch;
 import com.stockita.popularmovie.fragment.RecyclerViewFragmentMovieUpcoming;
 import com.stockita.popularmovie.fragment.RecyclerViewFragmentMovieRating;
+import com.stockita.popularmovie.utility.Utilities;
 
 
 /**
@@ -31,13 +32,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     // Member variable
     private CharSequence[] mTitles;
     private int mNumbOfTabs;
+    private Context mContext;
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ViewPagerAdapter(FragmentManager fm, CharSequence[] titles, int numbOfTabsumb) {
+    public ViewPagerAdapter(FragmentManager fm, CharSequence[] titles, int numbOfTabsumb, Context context) {
         super(fm);
         mTitles = titles;
         mNumbOfTabs = numbOfTabsumb;
+        mContext = context;
     }
 
     //This method return the fragment for the every position in the View Pager
@@ -48,14 +51,19 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case FRAGMENT_TAB_ONE:
+                Utilities.hideKeyboard((Activity) mContext);
                 return fragmentHolder.nowPlaying;
             case FRAGMENT_TAB_TWO:
+                Utilities.hideKeyboard((Activity) mContext);
                 return fragmentHolder.upcoming;
             case FRAGMENT_TAB_THREE:
+                Utilities.hideKeyboard((Activity) mContext);
                 return fragmentHolder.search;
             case FRAGMENT_TAB_FOUR:
+                Utilities.hideKeyboard((Activity) mContext);
                 return fragmentHolder.popularities;
             default:
+                Utilities.hideKeyboard((Activity) mContext);
                 return fragmentHolder.rating;
         }
     }

@@ -1,6 +1,5 @@
 package com.stockita.popularmovie.detailfragment;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -9,7 +8,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -56,17 +54,14 @@ public class DetailFragmentTabThree extends Fragment implements LoaderManager.Lo
     }
 
     /**
-     * on Create
-     *
-     * @param savedInstanceState
+     * on Create.
      */
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize context;
-        mContext = getContext();
+        mContext = getActivity();
 
         // savedInstanceState restored
         if (savedInstanceState != null) {
@@ -132,8 +127,6 @@ public class DetailFragmentTabThree extends Fragment implements LoaderManager.Lo
 
     /**
      * Reload the cursors
-     *
-     * @param savedInstanceState
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -142,7 +135,6 @@ public class DetailFragmentTabThree extends Fragment implements LoaderManager.Lo
         super.onActivityCreated(savedInstanceState);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Return new cursor with the following query parameters.

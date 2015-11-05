@@ -1,30 +1,25 @@
 package com.stockita.popularmovie.fragment;
 
-import android.annotation.TargetApi;
+
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.adapters.SearchRecyclerViewAdapter;
-import com.stockita.popularmovie.adapters.UpcomingRecyclerViewAdapter;
 import com.stockita.popularmovie.data.ContractMovies;
 import com.stockita.popularmovie.data.ModelMovie;
 import com.stockita.popularmovie.interfaces.CallThis;
@@ -50,17 +45,12 @@ public class RecyclerViewFragmentMovieSearch extends Fragment implements LoaderM
     // The Loader object.
     private SearchRecyclerViewAdapter mSearchAdapter;
 
-    // The CallBack interface object, to pass data from this fragment to the MainActivity.java
-    private CallThis mActivity;
-
     // Empty constructor.
     public RecyclerViewFragmentMovieSearch() {
     }
 
     /**
      * Here we fire the loaders.
-     *
-     * @param savedInstanceState
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -69,19 +59,6 @@ public class RecyclerViewFragmentMovieSearch extends Fragment implements LoaderM
         super.onActivityCreated(savedInstanceState);
     }
 
-    /**
-     * We attach the CallBack interface instance to pass data to the MainActivity.
-     *
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.mActivity = (CallThis) context;
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,27 +77,26 @@ public class RecyclerViewFragmentMovieSearch extends Fragment implements LoaderM
             holder.hSearchButtonIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                        if (!Utilities.isNetworkAvailable(getContext())) {
-                            Toast.makeText(getContext(), "Please check your internet connection.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        final String searchForAMovie = holder.hSearchEditText.getText().toString();
-                        holder.hSearchEditText.setText("");
-                        holder.hSearchEditText.setHint("Search for a movie");
-
-                        // Hide the keyboard.
-                        Utilities.hideKeyboard(getActivity());
-
-                        // Fetch the data
-                        Intent i = new Intent(getActivity(), FetchAndParse.class);
-                        i.putExtra(SORT_GROUP, searchForAMovie);
-                        getActivity().startService(i);
-
+                    if (!Utilities.isNetworkAvailable(getActivity())) {
+                        Toast.makeText(getActivity(), R.string.info_user_check_connection, Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    final String searchForAMovie = holder.hSearchEditText.getText().toString();
+                    holder.hSearchEditText.setText("");
+                    holder.hSearchEditText.setHint("Search for a movie");
+
+                    // Hide the keyboard.
+                    Utilities.hideKeyboard(getActivity());
+
+                    // Fetch the data
+                    Intent i = new Intent(getActivity(), FetchAndParse.class);
+                    i.putExtra(SORT_GROUP, searchForAMovie);
+                    getActivity().startService(i);
+
                 }
+
             });
         }
 
@@ -129,7 +105,7 @@ public class RecyclerViewFragmentMovieSearch extends Fragment implements LoaderM
          */
 
         // Initialize the Adapter
-        mSearchAdapter = new SearchRecyclerViewAdapter(getContext());
+        mSearchAdapter = new SearchRecyclerViewAdapter(getActivity());
 
         // Initialize the LayoutManager
         StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1,
@@ -156,20 +132,9 @@ public class RecyclerViewFragmentMovieSearch extends Fragment implements LoaderM
     public SearchRecyclerViewAdapter.OnItemClickListenerSearch onItemClickListener =
             new SearchRecyclerViewAdapter.OnItemClickListenerSearch() {
                 @Override
-                public void onItemClick(View view,
-                                        int position,
-                                        String movieId,
-                                        String movieTitle,
-                                        String releaseDate,
-                                        String posterPath,
-                                        String grade,
-                                        String genre,
-                                        String backDrop,
-                                        String overview,
-                                        String sortGroup) {
-
+                public void onItemClick(View view, int position, String movieId, String sortGroup) {
                     // Pass the data to NewDetailFragment via MainActivity Callback interface (CallThis)
-                    mActivity.onItemSelectedMovieId(movieId, movieTitle, releaseDate, posterPath, grade, genre, backDrop, overview, sortGroup);
+                    ((CallThis) getActivity()).onItemSelectedMovieId(movieId, sortGroup);
                 }
             };
 
@@ -227,13 +192,15 @@ public class RecyclerViewFragmentMovieSearch extends Fragment implements LoaderM
                     modelMovie.setSortGroup(data.getString(ContractMovies.MovieEntry.INDEX_COL_SORT_GROUP));
                     dataModelMovie.add(modelMovie);
                     data.moveToNext();
-                };
+                }
+                ;
 
                 // Pass the ArrayList to the adapter.
                 mSearchAdapter.swapCursor(dataModelMovie);
                 break;
         }
     }
+
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         // For whatever reason, the Loader's data is now not available.

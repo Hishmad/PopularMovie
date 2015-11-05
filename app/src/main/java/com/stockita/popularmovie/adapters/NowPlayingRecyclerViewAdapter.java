@@ -2,7 +2,6 @@ package com.stockita.popularmovie.adapters;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -13,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
@@ -51,19 +48,14 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
 
     /**
      * Get the data from the Fragment.
-     * @param data
      */
     public void swapCursor(ArrayList<ModelMovie> data) {
         mListModelMovie = data;
         notifyDataSetChanged();
     }
 
-
     /**
      * Mapping the position with table's row _id
-     *
-     * @param position
-     * @return
      */
     @Override
     public long getItemId(int position) {
@@ -71,9 +63,7 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
     }
 
     /**
-     * Return the count other wise if null return 0;
-     *
-     * @return
+     * Return the count other wise if null return 0.
      */
     @Override
     public int getItemCount() {
@@ -84,9 +74,6 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
      * This method will get the position and returns a resource layout id (R.layout....)
      * So we can manipulate, such as different layout for each position, instead of a static layout
      * for all.
-     *
-     * @param position
-     * @return
      */
     @Override
     public int getItemViewType(int position) {
@@ -104,9 +91,6 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
 
     /**
      * Here we go.
-     *
-     * @param holder
-     * @param position
      */
     @Override
     public void onBindViewHolder(final ViewHolderNowPlaying holder, int position) {
@@ -137,12 +121,6 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
             // Passing data around
             lMovieId = mListModelMovie.get(position).getMovieId();
             holder.hMovieID = lMovieId;
-            holder.hMovieTitle = movieTitle;
-            holder.hReleaseDate = releaseDate;
-            holder.hPosterPath = moviePoster;
-            holder.hGrade = String.valueOf(popularitiesAfterFormat);
-            holder.hBackdrop = mListModelMovie.get(position).getBackdropPath();
-            holder.hOverview = mListModelMovie.get(position).getOverview();
             holder.hSortGroup = mListModelMovie.get(position).getSortGroup();
 
         }
@@ -187,8 +165,6 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
 
     /**
      * Set up the click
-     *
-     * @param itemClickListener
      */
     public void setOnItemClickListenerNowPlaying(final OnItemClickListenerNowPlaying itemClickListener) {
         mItemClickListener = itemClickListener;
@@ -199,8 +175,7 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
      */
     public interface OnItemClickListenerNowPlaying {
         void onItemClick(View view, int position,
-                         String movieId, String movieTitle, String releaseDate, String posterPath,
-                         String grade, String genre, String backdrop, String overview, String sortGroup);
+                         String movieId, String sortGroup);
     }
 
     /**
@@ -248,8 +223,7 @@ public class NowPlayingRecyclerViewAdapter extends RecyclerView.Adapter<NowPlayi
         public void onClick(View v) {
             if (mItemClickListener != null) {
                 mItemClickListener.onItemClick(itemView, getLayoutPosition(),
-                        hMovieID, hMovieTitle, hReleaseDate,
-                        hPosterPath, hGrade, hGenre, hBackdrop, hOverview, hSortGroup);
+                        hMovieID, hSortGroup);
             }
         }
 

@@ -1,7 +1,6 @@
 package com.stockita.popularmovie.detailadapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.stockita.popularmovie.R;
-import com.stockita.popularmovie.data.ContractMovies;
-import com.stockita.popularmovie.data.ModelCredit;
 import com.stockita.popularmovie.data.ModelTrailer;
 import com.stockita.popularmovie.utility.Utilities;
 

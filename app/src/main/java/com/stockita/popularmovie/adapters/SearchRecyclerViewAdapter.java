@@ -12,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.stockita.popularmovie.R;
 import com.stockita.popularmovie.data.ContractMovies;
@@ -59,9 +57,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     /**
      * Mapping the position with table's row _id
-     *
-     * @param position
-     * @return
      */
     @Override
     public long getItemId(int position) {
@@ -70,8 +65,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     /**
      * Return the count other wise if cursor null return 0;
-     *
-     * @return
      */
     @Override
     public int getItemCount() {
@@ -89,9 +82,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     /**
      * Here we go.
-     *
-     * @param holder
-     * @param position
      */
     @Override
     public void onBindViewHolder(final ViewHolderSearch holder, final int position) {
@@ -124,12 +114,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             // Data to pass around
             lMovieId = mListModelMovie.get(position).getMovieId();
             holder.hMovieID = lMovieId;
-            holder.hMovieTitle = lMovieTitle;
-            holder.hReleaseDate = lReleaseDate;
-            holder.hPosterPath = lMoviePoster;
-            holder.hGrade = lPopularitiesAfterFormat;
-            holder.hBackdrop = mListModelMovie.get(position).getBackdropPath();
-            holder.hOverview = mListModelMovie.get(position).getOverview();
             holder.hSortGroup = mListModelMovie.get(position).getSortGroup();
 
         }
@@ -177,7 +161,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     /**
      * Set up the click
      *
-     * @param itemClickListener
      */
     public void setOnItemClickListenerSearch(final OnItemClickListenerSearch itemClickListener) {
         mItemClickListener = itemClickListener;
@@ -187,9 +170,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
      * Click interface that will be used by the Fragment, and implemented by the ViewHolder.
      */
     public interface OnItemClickListenerSearch {
-        void onItemClick(View view, int position, String movieId,
-                         String movieTitle, String releaseDate, String posterPath,
-                         String grade, String genre, String backdrop, String overview, String sortGroup);
+        void onItemClick(View view, int position, String movieId, String sortGroup);
     }
 
     /**
@@ -237,9 +218,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         @Override
         public void onClick(View v) {
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(itemView, getLayoutPosition(), hMovieID,
-                        hMovieTitle, hReleaseDate, hPosterPath, hGrade,
-                        hGenre, hBackdrop, hOverview, hSortGroup);
+                mItemClickListener.onItemClick(itemView, getLayoutPosition(), hMovieID, hSortGroup);
             }
         }
 
