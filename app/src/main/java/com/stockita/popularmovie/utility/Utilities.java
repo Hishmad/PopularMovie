@@ -36,7 +36,7 @@ public class Utilities {
     private static final String LOG_TAG = Utilities.class.getSimpleName();
     public static final String REQUEST_METHOD_GET = "GET";
     // Key to access themoviedb.org
-    public static final String KEYS = "6aa40ab662c684e4ac61551e93f15d08";
+    public static final String KEYS = "Your key here";
     // This is the URL sorted by rating
     public static final String URL_THE_MOVIE_DB_POPULAR_PageOne =
             "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=1&api_key=" + KEYS;

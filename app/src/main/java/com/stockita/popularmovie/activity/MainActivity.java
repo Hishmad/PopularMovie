@@ -1,6 +1,5 @@
 package com.stockita.popularmovie.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
